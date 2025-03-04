@@ -23,6 +23,7 @@ Square *** setUpPuzzle(int ** puzzle)
                     sudoku[i][j]->code = POSSIBLE;
                 else
                     sudoku[i][j]->code = 0x0;
+                    
             }
         }
 

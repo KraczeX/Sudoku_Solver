@@ -3,7 +3,7 @@
 Square *** setUpPuzzle(int ** puzzle)
 {
     Square *** sudoku;
-    int i, j;
+    int i, j, x;
 
     sudoku = (Square***)malloc(sizeof(Square**)*9);
 
@@ -19,15 +19,52 @@ Square *** setUpPuzzle(int ** puzzle)
                 sudoku[i][j]->row = i;
                 sudoku[i][j]->column = j;
 
-                if(sudoku[i][j]->number !=0)
-                    sudoku[i][j]->code = POSSIBLE;
-                else
-                    sudoku[i][j]->code = 0x0;
+                for(x = 0; x < SIZE_ROWS; x++)
+                {
+                    sudoku[i][j] -> possible[x] = 0;
+                }
                     
             }
         }
 
-};
+        for(i=0; i<SIZE_ROWS; i++)
+        {   
+            for(j=0; j<SIZE_COLUMNS; j++)
+            {
+                if(sudoku[i][j]->number != 0)
+                {
+                    sudoku[i][j]->solvable = 0;
+                    updateSudoku(sudoku, i, j);
+                }
+            }
+        }
+}
+
+int updateSudoku(Square *** sudoku, int row, int column)
+{
+    int x;
+    int number = sudoku[row][column] -> number;
+
+    for(x = 0; x < SIZE_ROWS; x++)
+    {
+        if(sudoku[x][column]->possible[number - 1] == 0)
+        {
+            sudoku[x][column] -> solvable--;
+        }
+        sudoku[x][column] -> possible[number - 1] = 1;
+    }
+
+    for(x = 0; x < SIZE_COLUMNS; x++)
+    {
+        if(sudoku[row][x]->possible[number - 1] == 0)
+        {
+            sudoku[row][x] -> solvable--;
+        }
+        sudoku[row][x] -> possible[number - 1] = 1;
+    }
+
+    return 1;
+}
 
 int ** createPuzzle()
 {

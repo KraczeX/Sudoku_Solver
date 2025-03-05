@@ -35,9 +35,12 @@ Square *** setUpPuzzle(int ** puzzle)
                 {
                     sudoku[i][j]->solvable = 0;
                     updateSudoku(sudoku, i, j);
+                    UNSOLVED--;
                 }
             }
         }
+
+        return sudoku;
 }
 
 int updateSudoku(Square *** sudoku, int row, int column)
@@ -63,6 +66,24 @@ int updateSudoku(Square *** sudoku, int row, int column)
         sudoku[row][x] -> possible[number - 1] = 1;
     }
 
+    return 1;
+}
+
+checkPuzzle(Square *** sudoku)
+{
+    int i, j, x;
+
+    for(i=0; i<SIZE_ROWS; i++)
+    {   
+        for(j=0; j<SIZE_COLUMNS; j++)
+        {
+            if(sudoku[i][j] ->solvable == 1)
+            {
+                solveSquare(sudoku[i][j]);
+                updateSudoku(sudoku, i, j);
+            }
+        }
+    }
     return 1;
 }
 

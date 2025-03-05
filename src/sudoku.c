@@ -12,5 +12,8 @@ int main()
 
     printPuzzle(puzzle);
     sudoku = setUpPuzzle(puzzle);
+
+    checkPuzzle(sudoku);
+
     return 0;
 }

@@ -1,5 +1,7 @@
 #include "sudoku.h"
 
+char POSSIBLE = 0x1F;
+
 int main()
 {
     int ** puzzle;
